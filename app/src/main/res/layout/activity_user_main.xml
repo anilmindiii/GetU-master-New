@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/framlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layout_for_tapbar" />
+
+    <LinearLayout
+        android:id="@+id/layout_for_tapbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:background="@drawable/tabbar_bg"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/iv_for_home"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_home_icon"/>
+
+        <ImageView
+            android:id="@+id/iv_for_chatting"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_chat_ico"/>
+
+        <ImageView
+            android:id="@+id/iv_for_online"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_heart_ico"/>
+
+        <ImageView
+            android:id="@+id/iv_for_notification"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_profile_ico"/>
+
+        <ImageView
+            android:id="@+id/iv_for_satting"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_setting_screen"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,58 @@
+{
+  "project_info": {
+    "project_number": "117110244596",
+    "firebase_url": "https://getu-1511863559743.firebaseio.com",
+    "project_id": "getu-1511863559743",
+    "storage_bucket": "getu-1511863559743.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117110244596:android:ea1ad901340563af",
+        "android_client_info": {
+          "package_name": "getu.app.com.getu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117110244596-8vo324vljt3eg1i5316egmounhlii4j1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "getu.app.com.getu",
+            "certificate_hash": "299209342621957be5eaad3a98ca4c5ed9769281"
+          }
+        },
+        {
+          "client_id": "117110244596-f21p8bqq8ua6e786pehr0ncj4epulal1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbo89EDYw7OiSosg-vpoCN0b-5HTywKVo"
+        },
+        {
+          "current_key": "AIzaSyD6Ut_uiRoHWJQH-OXcuWBaFDM4fyj0RFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117110244596-f21p8bqq8ua6e786pehr0ncj4epulal1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "117110244596-9ua9ltq3mmc4rlvviqjpjpbsrji6f2f7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mindiii.GetUApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

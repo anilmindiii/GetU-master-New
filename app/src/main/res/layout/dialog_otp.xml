@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_275sdp"
+    android:gravity="center">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_225sdp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_40sdp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@drawable/dialog_full_bg"
+            android:paddingLeft="@dimen/_20sdp">
+
+            <ImageView
+                android:id="@+id/iv_for_cansel"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/close_ico" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:padding="@dimen/_25sdp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:fontFamily="@font/comicbd_regular"
+                    android:gravity="center"
+                    android:text="OTP"
+                    android:textColor="@color/Green"
+                    android:textSize="@dimen/_16ssp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp">
+
+                    <!--<TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:textColor="@color/lightGrey"
+                        android:textSize="@dimen/_16ssp"
+                        android:hint="Enter 4 digit code"/>-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp">
+
+                            <EditText
+                                android:id="@+id/et_for_firstOTP"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_35sdp"
+                                android:layout_centerInParent="true"
+                                android:background="@null"
+                                android:fontFamily="@font/opensans_regular"
+                                android:inputType="number"
+                                android:gravity="center"
+                                android:maxLength="1"
+                                android:textColor="@color/darkGrey"
+                                android:textSize="@dimen/_20ssp" />
+
+                            <View
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="1dp"
+                                android:layout_below="@+id/et_for_firstOTP"
+                                android:background="@color/lightGrey" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginLeft="@dimen/_10sdp">
+
+                            <EditText
+                                android:id="@+id/et_for_secondOTP"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_35sdp"
+                                android:layout_centerInParent="true"
+                                android:background="@null"
+                                android:fontFamily="@font/opensans_regular"
+                                android:inputType="number"
+                                android:gravity="center"
+                                android:maxLength="1"
+                                android:textColor="@color/darkGrey"
+                                android:textSize="@dimen/_20ssp" />
+
+                            <View
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="1dp"
+                                android:layout_below="@+id/et_for_secondOTP"
+                                android:background="@color/lightGrey" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginLeft="@dimen/_10sdp">
+
+                            <EditText
+                                android:id="@+id/et_for_thirdOTP"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_35sdp"
+                                android:layout_centerInParent="true"
+                                android:background="@null"
+                                android:fontFamily="@font/opensans_regular"
+                                android:inputType="number"
+                                android:gravity="center"
+                                android:maxLength="1"
+                                android:textColor="@color/darkGrey"
+                                android:textSize="@dimen/_20ssp" />
+
+                            <View
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="1dp"
+                                android:layout_below="@+id/et_for_thirdOTP"
+                                android:background="@color/lightGrey" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginLeft="@dimen/_10sdp">
+
+                            <EditText
+                                android:id="@+id/et_for_forthOTP"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_35sdp"
+                                android:layout_centerInParent="true"
+                                android:background="@null"
+                                android:fontFamily="@font/opensans_regular"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:gravity="center"
+                                android:textColor="@color/darkGrey"
+                                android:textSize="@dimen/_20ssp" />
+
+                            <View
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="1dp"
+                                android:layout_below="@+id/et_for_forthOTP"
+                                android:background="@color/lightGrey" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_for_resnedOTP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/resend_otp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/Green"
+                    android:layout_marginTop="@dimen/_15sdp"/>
+
+                <Button
+                    android:id="@+id/btn_for_save"
+                    android:layout_width="@dimen/_130sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:background="@drawable/button_bg_dialog"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:gravity="center"
+                    android:text="Submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/White"
+                    android:textSize="@dimen/_14ssp" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/logo"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:src="@drawable/right_ico" />
+
+</RelativeLayout>

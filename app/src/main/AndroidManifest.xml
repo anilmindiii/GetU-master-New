@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="getu.app.com.getu">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <application
+        android:name=".common_activity.MyCustomApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@drawable/app_icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".common_activity.SpleshScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyCustomTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name ="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".hepler.NetworkChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".common_activity.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyCustomTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity
+            android:name=".common_activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyCustomTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".common_activity.RagistrationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyCustomTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".common_activity.OTPActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OTPTheme" />
+        <activity
+            android:name=".common_activity.ForgotPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyCustomTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".freelancer_side.activity.FreelancerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OTPTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden|stateAlwaysHidden" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_key" />
+
+        <activity
+            android:name=".user_side_package.acrivity.UserMainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OTPTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden|stateAlwaysHidden" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".fcm.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".fcm.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="8fbfe9d1e6db6bd9f5e100729b88318a8c1098d1" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".common_activity.NotificationUserDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OTPTheme"/>
+        <activity
+            android:name=".user_side_package.acrivity.AboutUsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OTPTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".user_side_package.acrivity.TandCActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OTPTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".freelancer_side.activity.TandCFreelancerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OTPTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".freelancer_side.activity.AboutUsFreelancerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/OTPTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".chat.activity.ChatActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            android:theme="@style/OTPTheme"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
+                <action android:name="ChatActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"
+                android:screenOrientation="portrait" />
+        </provider>
+
+        <activity
+            android:name=".common_activity.NetworkErrorActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyCustomTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity android:name=".common_activity.NetworkErrorHomeActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@style/OTPTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+
+    </application>
+
+</manifest>

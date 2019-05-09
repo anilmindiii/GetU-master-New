@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="getu.app.com.getu.common_activity.NetworkErrorHomeActivity">
+
+    <include
+        android:id="@+id/layout_for_toolbar"
+        layout="@layout/actionbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp"
+            android:src="@drawable/ic_wifi_black_24dp"
+            android:layout_gravity="center"
+            android:tint="@color/Green"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            android:id="@+id/tv_network"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/no_connection"
+            android:gravity="center"
+            android:fontFamily="@font/montserrat_regular"
+            android:textColor="@color/darkGrey"
+            android:textSize="@dimen/_20sdp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12ssp"
+            android:fontFamily="@font/montserrat_light"
+            android:textColor="@color/darkGrey"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/network_msg"
+            android:textSize="@dimen/_14ssp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_for_tapbarFree"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:background="@drawable/tabbar_bg"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_home_icon"/>
+
+        <ImageView
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_chat_ico"/>
+
+        <ImageView
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_notifications_ico"/>
+
+        <ImageView
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_profile_ico"/>
+
+        <ImageView
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_setting_screen"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_for_tapbarUser"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:background="@drawable/tabbar_bg"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/iv_for_home"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_home_icon"/>
+
+        <ImageView
+            android:id="@+id/iv_for_chatting"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_chat_ico"/>
+
+        <ImageView
+            android:id="@+id/iv_for_online"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_heart_ico"/>
+
+        <ImageView
+            android:id="@+id/iv_for_notification"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_profile_ico"/>
+
+        <ImageView
+            android:id="@+id/iv_for_satting"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/inactive_setting_screen"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_for_fullToolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/actionBarSize"
+    android:fitsSystemWindows="true"
+    android:background="@color/Green">
+
+    <ImageView
+        android:id="@+id/iv_for_back"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/back_ico_otp"
+        android:padding="@dimen/_5sdp" />
+
+    <TextView
+        android:id="@+id/tv_for_tittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_regular"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:padding="@dimen/_5sdp"
+        android:textColor="@color/White"
+        android:textSize="@dimen/_16sdp" />
+
+    <ImageView
+        android:id="@+id/iv_for_delete"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:src="@drawable/chat_delete_ico"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/_5sdp" />
+
+    <ImageView
+        android:id="@+id/iv_for_chat"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:src="@drawable/chat_ico"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/_5sdp" />
+
+    <ImageView
+        android:id="@+id/iv_for_block"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:src="@drawable/block_ico"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/iv_for_delete"
+        android:padding="@dimen/_5sdp" />
+
+</RelativeLayout>
