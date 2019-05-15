@@ -224,12 +224,122 @@ public class UserOnlineFragment extends Fragment {
     }
 
     private void getAllData(final String sCatId) {
+        if (Utils.isNetworkAvailable(getActivity())) {
+            pDialog.show();
+
+            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.GET, Constant.URL_BEFORE_LOGIN + "user/getFreelancersList?categoryId="+sCatId+"&offset="+page+"&limit="+limit+""+"&latitude="+latitude+"&longitude="+longitude+"&online_status="+"1", new Response.Listener<NetworkResponse>() {
+                @Override
+                public void onResponse(NetworkResponse response) {
+                    String data = new String(response.data);
+                    Log.e("Response", data);
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(data);
+
+                        String status = jsonObject.getString("status");
+                        String message = jsonObject.getString("message");
+                        //String userstatus = jsonObject.getString("userstatus");
+                        pDialog.dismiss();
+                        // if (userstatus.equals("1") || GuestUser.equals("GuestUser")) {
+                        if (status.equals("success")) {
+                            userLists.clear();
+                            pDialog.dismiss();
+                            tv_for_noData.setVisibility(View.GONE);
+                            recycler_view.setVisibility(View.VISIBLE);
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                            JSONArray result = jsonObject1.getJSONArray("freelancer_list");
+                            if (result != null) {
+                                for (int i = 0; i < result.length(); i++) {
+                                    JSONObject object = result.getJSONObject(i);
+                                    UserList userList = new UserList();
+                                    userList.userName = object.getString("userName");
+                                    //userList.fireBaseId = object.getString("fireBaseId");
+                                    //userList.fireBaseToken = object.getString("fireBaseToken");
+                                    userList.email = object.getString("email");
+                                    userList.contactNo = object.getString("contactNo");
+                                    userList.countryCode = object.getString("countryCode");
+                                    userList.description = object.getString("description");
+                                    userList.distance = object.getString("distance");
+                                    userList.profileimage = object.getString("userAvatar");
+                                    // userList.userId = object.getString("userId");
+                                    userList.fullName = object.getString("fullName");
+                                    userList.onlineStatus = object.getString("onlineStatus");
+                                    userList.latitude = object.getString("latitude");
+                                    userList.longitude = object.getString("longitude");
+                                    userList.address = object.getString("address");
+                                    userList.category = object.getString("categoryName");
+                                    userList.category_id = object.getString("category_id");
+
+
+
+                                    userLists.add(userList);
+                                }
+
+                                userAdapter.notifyDataSetChanged();
+
+                                page = page + 1;
+
+                                if(userLists.size() == 0)
+                                    tv_for_noData.setVisibility(View.VISIBLE);
+                                else  tv_for_noData.setVisibility(View.GONE);
+                            }
+                        } else {
+//                            Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+                            tv_for_noData.setVisibility(View.VISIBLE);
+                            recycler_view.setVisibility(View.GONE);
+                        }
+                        /*} else {
+                            Utils.customAlertDialog(getActivity(), "Alert!", "You are temporary inactive by admin");
+                        }*/
+                    } catch (Throwable t) {
+                        Log.e("My App", "Could not parse malformed JSON: \"" + response + "\"");
+                    }
+                    pDialog.dismiss();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    NetworkResponse networkResponse = error.networkResponse;
+                    Log.i("Error", networkResponse + "");
+                    // Toast.makeText(mcontext, networkResponse + "", Toast.LENGTH_SHORT).show();
+                    pDialog.dismiss();
+                    tv_for_noData.setVisibility(View.VISIBLE);
+                    recycler_view.setVisibility(View.GONE);
+                    error.printStackTrace();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("latitude", String.valueOf(latitude));
+                    params.put("longitude", String.valueOf(longitude));
+                    if (session.getIsLogedIn()) {
+                        params.put("userId", session.getUserID());
+                    } else {
+                        params.put("userId", "");
+                    }
+                    params.put("cId", sCatId);
+                    params.put("page", page + "");
+                    params.put("limit", limit + "");
+                    params.put("online_status", "1");
+                    return params;
+                }
+            };
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            VolleySingleton.getInstance(getActivity()).addToRequestQueue(multipartRequest);
+        } else {
+            //Toast.makeText(mcontext, R.string.check_net_connection, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+  /*  private void getAllData(final String sCatId) {
 
         if (Utils.isNetworkAvailable(getActivity())) {
 
             pDialog.show();
 
-            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, Constant.URL_BEFORE_LOGIN + "getAllData", new Response.Listener<NetworkResponse>() {
+            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.GET, "user/getFreelancersList?categoryId="+sCatId+"&offset="+page+"&limit="+limit+""+"&latitude="+latitude+"&longitude="+longitude+"", new Response.Listener<NetworkResponse>() {
+
                 @Override
                 public void onResponse(NetworkResponse response) {
                     String data = new String(response.data);
@@ -296,7 +406,7 @@ public class UserOnlineFragment extends Fragment {
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     tv_for_noData.setVisibility(View.VISIBLE);
                     recycler_view.setVisibility(View.GONE);
@@ -325,14 +435,14 @@ public class UserOnlineFragment extends Fragment {
         } else {
             Toast.makeText(getContext(), R.string.check_net_connection, Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
     private void getCategoryFullList() {
 
         if (Utils.isNetworkAvailable(getContext())) {
             pDialog.show();
 
-            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.GET, Constant.URL_BEFORE_LOGIN + "getAllCategory", new Response.Listener<NetworkResponse>() {
+            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.GET, Constant.URL_BEFORE_LOGIN + "user/getCategoryList", new Response.Listener<NetworkResponse>() {
                 @Override
                 public void onResponse(NetworkResponse response) {
                     String data = new String(response.data);
@@ -342,17 +452,18 @@ public class UserOnlineFragment extends Fragment {
                         JSONObject jsonObject = new JSONObject(data);
                         String status = jsonObject.getString("status");
                         String message = jsonObject.getString("message");
-                        if (status.equals("SUCCESS")) {
+                        if (status.equalsIgnoreCase("SUCCESS")) {
                             arrayList.clear();
                             arrayList.add(new Category());
 
-                            JSONArray result = jsonObject.getJSONArray("category");
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                            JSONArray result = jsonObject1.getJSONArray("categoryList");
                             int i;
                             for (i = 0; i < result.length(); i++) {
                                 JSONObject object = result.getJSONObject(i);
                                 Category category = new Category();
                                 category.cID = object.getString("id");
-                                category.cName = object.getString("cName");
+                                category.cName = object.getString("categoryName");
                                 arrayList.add(category);
                             }
                             customSpAdapter.notifyDataSetChanged();
@@ -372,7 +483,7 @@ public class UserOnlineFragment extends Fragment {
                     NetworkResponse networkResponse = error.networkResponse;
                     pDialog.dismiss();
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     error.printStackTrace();
                 }
             });

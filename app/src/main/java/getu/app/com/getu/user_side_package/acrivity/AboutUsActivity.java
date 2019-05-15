@@ -93,7 +93,7 @@ public class AboutUsActivity extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(AboutUsActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(AboutUsActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }

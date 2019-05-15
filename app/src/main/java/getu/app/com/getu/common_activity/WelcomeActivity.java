@@ -140,7 +140,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(WelcomeActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(WelcomeActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }

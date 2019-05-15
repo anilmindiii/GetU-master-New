@@ -15,7 +15,7 @@ public class UserDetails implements Serializable {
     public String deviceType = "";
     public String socialId = "";
     public String socialType = "";
-    public String profileImage = "";
+    public String userAvatar = "";
     public String id = "";
     public String userType = "";
     public String fullName = "";

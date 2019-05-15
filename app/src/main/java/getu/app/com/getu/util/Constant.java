@@ -80,10 +80,13 @@ public class Constant {
     public static int HOME_RESUME = 0;
 
     //public static final String URL_BEFORE_LOGIN = "http://gnmtechnology.com/index.php/service/service/";
-    public static final String URL_BEFORE_LOGIN = "http://dev.mindiii.com/getu/api_v1/";
+    //public static final String URL_BEFORE_LOGIN = "http://dev.mindiii.com/getu/api_v1/";
+    public static final String URL_BEFORE_LOGIN = "http://52.201.121.172/api_v1/";
 
     //public static final String URL_After_LOGIN = "http://gnmtechnology.com/index.php/service/user/";
-    public static final String URL_After_LOGIN = "http://dev.mindiii.com/getu/index.php/service/user/";
+    //public static final String URL_After_LOGIN = "http://dev.mindiii.com/getu/index.php/service/user/";
+   // public static final String URL_After_LOGIN =  "http://dev.mindiii.com/getu/api_v1/";
+    public static final String URL_After_LOGIN =  "http://52.201.121.172/api_v1/";
 
     public static final int BackPressed_Exit = 2000;
     public static final int ACCESS_FINE_LOCATION = 99;
@@ -159,10 +162,10 @@ public class Constant {
     }
 
     public static void logout(final Activity con) {
-        final Session session = new Session(con);
-        signOut(con, session);
+       /* final Session session = new Session(con);
+        signOut(con, session);*/
 
-     /*   if (Utils.isNetworkAvailable(con)) {
+        if (Utils.isNetworkAvailable(con)) {
 
             final Dialog pDialog = new Dialog(con);
             Constant.myDialog(con,pDialog);
@@ -171,7 +174,7 @@ public class Constant {
             final Session session = new Session(con);
 
             VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.GET,
-                    Constant.URL_After_LOGIN + "logout", new Response.Listener<NetworkResponse>() {
+                    Constant.URL_After_LOGIN + "user/logout", new Response.Listener<NetworkResponse>() {
                 @Override
                 public void onResponse(NetworkResponse response) {
                     String data = new String(response.data);
@@ -182,8 +185,10 @@ public class Constant {
 
 
                         String message = jsonObject.getString("message");
+                        signOut(con, session);
+                        Toast.makeText(con, message, Toast.LENGTH_SHORT).show();
 
-                        if (message.equals("Invalid Auth Token")){
+                       /* if (message.equals("Invalid Auth Token")){
                             signOut(con, session);
                         }
                         String status = jsonObject.getString("status");
@@ -191,11 +196,11 @@ public class Constant {
                         if (status.equals("SUCCESS")) {
 
                             signOut(con, session);
-
+                            Toast.makeText(con, message, Toast.LENGTH_SHORT).show();
 
                         } else {
                             Toast.makeText(con, message, Toast.LENGTH_SHORT).show();
-                        }
+                        }*/
 
                     } catch (Throwable t) {
                         Log.e("My App", "Could not parse malformed JSON: \"" + response + "\"");
@@ -205,10 +210,8 @@ public class Constant {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    NetworkResponse networkResponse = error.networkResponse;
-                    Constant.errorHandle(error, con);
-                    Log.i("Error", networkResponse + "");
-                    Toast.makeText(con, networkResponse + "", Toast.LENGTH_SHORT).show();
+                    final Session session = new Session(con);
+                    signOut(con, session);
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -228,7 +231,7 @@ public class Constant {
             VolleySingleton.getInstance(con).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(con, R.string.check_net_connection, Toast.LENGTH_SHORT).show();
-        }*/
+        }
     }
 
     public static void signOut(final Activity con, final Session session) {

@@ -17,6 +17,7 @@ public class UserList implements Serializable {
     public transient String fullName = "";
     public transient String address = "";
     public transient String category = "";
+    public transient String category_id = "";
     public transient String userId = "";
     public transient String latitude = "";
     public transient String longitude = "";

@@ -50,7 +50,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         UserList userList = userLists.get(position);
 
         if (userList.profileimage != null && !userList.profileimage.equals("")) {
-            Picasso.with(mContext).load(userList.profileimage).fit().placeholder(R.drawable.user).into(holder.profile_image);
+            Picasso.with(mContext).load(userList.profileimage).fit().
+                    placeholder(R.drawable.user).into(holder.profile_image);
         }else {
             Picasso.with(mContext).load(R.drawable.user).fit().into(holder.profile_image);}
 

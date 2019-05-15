@@ -456,7 +456,7 @@ public class RagistrationActivity extends AppCompatActivity implements View.OnCl
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(RagistrationActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(RagistrationActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -492,7 +492,7 @@ public class RagistrationActivity extends AppCompatActivity implements View.OnCl
                     params.put("city", city);
 
                     if (bitmap == null){
-                        params.put("profilePic", "");
+                        params.put("profileImage", "");
                     }
 
                     return params;
@@ -549,7 +549,7 @@ public class RagistrationActivity extends AppCompatActivity implements View.OnCl
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(RagistrationActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(RagistrationActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -582,7 +582,7 @@ public class RagistrationActivity extends AppCompatActivity implements View.OnCl
                     params.put("city", city);
 
                     if (bitmap == null){
-                        params.put("profilePic", "");
+                        params.put("profileImage", "");
                     }
                     return params;
                 }
@@ -591,7 +591,7 @@ public class RagistrationActivity extends AppCompatActivity implements View.OnCl
                 protected Map<String, DataPart> getByteData() {
                     Map<String, DataPart> params = new HashMap<String, DataPart>();
                     if (bitmap != null) {
-                        params.put("profilePic", new VolleyMultipartRequest.DataPart("profilePic.jpg", AppHelper.getFileDataFromDrawable(bitmap), "image/jpeg"));
+                        params.put("profileImage", new VolleyMultipartRequest.DataPart("profileImage.jpg", AppHelper.getFileDataFromDrawable(bitmap), "image/jpeg"));
                     }
                     return params;
                 }
@@ -685,7 +685,7 @@ public class RagistrationActivity extends AppCompatActivity implements View.OnCl
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(RagistrationActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(RagistrationActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }

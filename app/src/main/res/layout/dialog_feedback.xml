@@ -58,22 +58,35 @@
                     android:layout_gravity="center"
                     android:gravity="center" />
 
-
-                <getu.app.com.getu.hepler.LinedEditText
-                    android:id="@+id/et_for_feedback"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/_12ssp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:maxHeight="@dimen/_100sdp"
-                    android:imeOptions="actionNext"
-                    android:inputType="textMultiLine"
-                    android:background="@null"
-                    android:padding="@dimen/_5sdp"
-                    android:lineSpacingExtra="@dimen/_5sdp"
-                    android:layout_gravity="center"
-                    android:textColor="@color/grey"
-                    android:fontFamily="@font/montserrat_regular"/>
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_for_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_12ssp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:maxHeight="@dimen/_100sdp"
+                        android:imeOptions="actionNext"
+                        android:inputType="textMultiLine"
+                        android:background="@null"
+                        android:padding="@dimen/_5sdp"
+                        android:lineSpacingExtra="@dimen/_5sdp"
+                        android:layout_gravity="center"
+                        android:textColor="@color/grey"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+
+                    <TextView
+                        android:layout_below="@+id/et_for_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.8dp"
+                        android:background="@color/grey"/>
+                </RelativeLayout>
+
+
 
             </LinearLayout>
 

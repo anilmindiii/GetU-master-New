@@ -30,6 +30,7 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -142,7 +143,14 @@ public class ChatProfileFragment extends Fragment {
         }
 
         tv_for_category.setText(userList.category);
-        tv_for_distance.setText(userList.distance);
+
+        try{
+            Double str = Double.valueOf(userList.distance);
+            String value = new DecimalFormat("#.##").format(str);
+            tv_for_distance.setText(value);
+        }catch (Exception e){
+
+        }
 
 
         if (userList.fullName != null && !userList.description.equals(""))
@@ -238,7 +246,7 @@ public class ChatProfileFragment extends Fragment {
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }

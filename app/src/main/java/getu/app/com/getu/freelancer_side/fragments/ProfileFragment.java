@@ -424,8 +424,9 @@ public class ProfileFragment extends Fragment {
 
                     } else {
                         if (bitmap != null |!userName.equals(session.getuserName()) | !email.equals(session.getEmail()) | !address.equals(session.getAddressName()) | !discriptions.equals(session.getDescription()) | !fullName.equals(session.getFullName())) {
-                            updateProfile(userName, email, address, discriptions, fullName, oldUserName);
+
                         }
+                        updateProfile(userName, email, address, discriptions, fullName, oldUserName);
                     }
                 }
             }
@@ -490,7 +491,7 @@ public class ProfileFragment extends Fragment {
             Constant.myDialog(getActivity(),pDialog);
             pDialog.show();
 
-            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, Constant.URL_After_LOGIN + "updateProfile", new Response.Listener<NetworkResponse>() {
+            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, Constant.URL_After_LOGIN + "user/updateProfile", new Response.Listener<NetworkResponse>() {
                 @Override
                 public void onResponse(NetworkResponse response) {
                     String data = new String(response.data);
@@ -501,30 +502,23 @@ public class ProfileFragment extends Fragment {
 
                         String status = jsonObject.getString("status");
                         String message = jsonObject.getString("message");
-                        String userstatus = jsonObject.getString("userstatus");
 
                         if (status.equalsIgnoreCase("SUCCESS")) {
-                            if (userstatus.equals("1")) {
+                            if (oldUserName.equalsIgnoreCase(userName)) {
 
-                                if (oldUserName.equalsIgnoreCase(userName)) {
+                                JSONObject userDetail = jsonObject.getJSONObject("userDetail");
 
-                                    JSONObject userDetail = jsonObject.getJSONObject("userInfo");
-                                    UserDetails userDetails = new UserDetails();
+                                UserDetails userDetails = new Gson().fromJson(userDetail.toString(),UserDetails.class);
 
-                                    userDetails = new Gson().fromJson(userDetail.toString(),UserDetails.class);
+                                firebaseLogin(userDetails);
 
-                                    firebaseLogin(userDetails);
-
-                                }else {
-                                    Intent intent = new Intent(getActivity(),WelcomeActivity.class);
-                                    session.logout();
-                                    startActivity(intent);
-                                }
-                                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-
-                            } else {
-                                Utils.customAlertDialog(getActivity(), "Alert!", "You are temporary inactive by admin");
+                            }else {
+                                Intent intent = new Intent(getActivity(),WelcomeActivity.class);
+                                session.logout();
+                                startActivity(intent);
                             }
+                            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+
 
                         } else {
                             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
@@ -543,7 +537,7 @@ public class ProfileFragment extends Fragment {
                     NetworkResponse networkResponse = error.networkResponse;
                     Constant.errorHandle(error, getActivity());
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -575,7 +569,7 @@ public class ProfileFragment extends Fragment {
                     }else {
                         params.put("city", session.getCity());
                     }
-                    params.put("cId", catID);
+                    params.put("category", catID);
 
                     return params;
                 }
@@ -594,7 +588,7 @@ public class ProfileFragment extends Fragment {
                 protected Map<String, DataPart> getByteData() {
                     Map<String, DataPart> params = new HashMap<String, DataPart>();
                     if (bitmap != null) {
-                        params.put("profilePic", new VolleyMultipartRequest.DataPart("profilePic.jpg", AppHelper.getFileDataFromDrawable(bitmap), "image/jpeg"));
+                        params.put("profileImage", new VolleyMultipartRequest.DataPart("profilePic.jpg", AppHelper.getFileDataFromDrawable(bitmap), "image/jpeg"));
                     }
                     return params;
                 }
@@ -674,7 +668,7 @@ public class ProfileFragment extends Fragment {
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -697,7 +691,7 @@ public class ProfileFragment extends Fragment {
         firebaseData.name = userDetails.fullName;
         firebaseData.email = userDetails.email;
         firebaseData.firebaseToken = FirebaseInstanceId.getInstance().getToken();
-        firebaseData.profilePic = userDetails.profileImage;
+        firebaseData.profilePic = userDetails.userAvatar;
         firebaseData.userType = userDetails.userType;
         firebaseData.uid = userDetails.id;
         firebaseData.notificationStatus = userDetails.notificationStatus;
@@ -747,7 +741,7 @@ public class ProfileFragment extends Fragment {
         firebaseData.name = userDetails.fullName;
         firebaseData.email = userDetails.email;
         firebaseData.firebaseToken = FirebaseInstanceId.getInstance().getToken();
-        firebaseData.profilePic = userDetails.profileImage;
+        firebaseData.profilePic = userDetails.userAvatar;
         firebaseData.userType = userDetails.userType;
         firebaseData.uid = userDetails.id;
         firebaseData.notificationStatus = userDetails.notificationStatus;

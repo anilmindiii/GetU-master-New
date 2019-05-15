@@ -56,8 +56,13 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
                                   Response.Listener<NetworkResponse> listener,
                                   Response.ErrorListener errorListener) {
         super(method, url, errorListener);
-        this.mListener = listener;
-        this.mErrorListener = errorListener;
+        try {
+            this.mListener = listener;
+            this.mErrorListener = errorListener;
+        }catch (Exception e){
+
+        }
+
     }
 
     @Override
@@ -92,7 +97,7 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
             dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
             return bos.toByteArray();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -121,6 +126,7 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
 
     @Override
     protected void deliverResponse(NetworkResponse response) {
+        if(mListener != null)
         mListener.onResponse(response);
     }
 

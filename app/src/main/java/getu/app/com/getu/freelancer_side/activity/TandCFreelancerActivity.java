@@ -28,7 +28,7 @@ public class TandCFreelancerActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.webView);
         dialog = new ProgressDialog(TandCFreelancerActivity.this);
         dialog.setMessage("Loading please wait.....");
-        initWebView("http://gnmtechnology.com/themes/documents/TC.pdf");
+        initWebView("http://52.201.121.172/backend_asset/document/TC.pdf");
     }
 
     public void initWebView(String url) {

@@ -151,7 +151,7 @@ public class NotificationUserDetailActivity extends AppCompatActivity {
                     NetworkResponse networkResponse = error.networkResponse;
                     Constant.errorHandle(error, NotificationUserDetailActivity.this);
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(NotificationUserDetailActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(NotificationUserDetailActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }

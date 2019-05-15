@@ -43,7 +43,7 @@ public class Session {
         editor.putString(Constant.CID, userDetails.cId);
         editor.putString(Constant.AUTH_TOKEN, userDetails.authToken);
         editor.putString(Constant.STATUS, userDetails.status);
-        editor.putString(Constant.PROFILE_PIC, userDetails.profileImage);
+        editor.putString(Constant.PROFILE_PIC, userDetails.userAvatar);
         editor.putString(Constant.C_Name, userDetails.cName);
 
         editor.putString(Constant.ONLINE_STATUS, userDetails.onlineStatus);

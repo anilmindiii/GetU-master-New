@@ -97,7 +97,7 @@ public class AboutUsFreelancerActivity extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(AboutUsFreelancerActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(AboutUsFreelancerActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }

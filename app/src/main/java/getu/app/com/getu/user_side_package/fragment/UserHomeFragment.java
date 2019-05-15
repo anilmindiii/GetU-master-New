@@ -296,15 +296,16 @@ public class UserHomeFragment extends Fragment {
                                         userList.contactNo = object.getString("contactNo");
                                         userList.countryCode = object.getString("countryCode");
                                         userList.description = object.getString("description");
-                                        //userList.distance = object.getString("distance");
-                                        userList.profileimage = object.getString("profileImageName");
+                                        userList.distance = object.getString("distance");
+                                        userList.profileimage = object.getString("userAvatar");
                                        // userList.userId = object.getString("userId");
                                         userList.fullName = object.getString("fullName");
                                         userList.onlineStatus = object.getString("onlineStatus");
                                         userList.latitude = object.getString("latitude");
                                         userList.longitude = object.getString("longitude");
                                         userList.address = object.getString("address");
-                                        //userList.category = object.getString("cName");
+                                        userList.category = object.getString("categoryName");
+                                        userList.category_id = object.getString("category_id");
 
 
 
@@ -314,6 +315,10 @@ public class UserHomeFragment extends Fragment {
                                     userAdapter.notifyDataSetChanged();
 
                                     page = page + 1;
+
+                                    if(userLists.size() == 0)
+                                        tv_for_noData.setVisibility(View.VISIBLE);
+                                    else  tv_for_noData.setVisibility(View.GONE);
                                 }
                             } else {
 //                            Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
@@ -333,7 +338,7 @@ public class UserHomeFragment extends Fragment {
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(mcontext, networkResponse + "", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(mcontext, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     tv_for_noData.setVisibility(View.VISIBLE);
                     recycler_view.setVisibility(View.GONE);
@@ -353,6 +358,7 @@ public class UserHomeFragment extends Fragment {
                     params.put("cId", sCatId);
                     params.put("page", page + "");
                     params.put("limit", limit + "");
+                    params.put("online_status", "1");
                     return params;
                 }
             };

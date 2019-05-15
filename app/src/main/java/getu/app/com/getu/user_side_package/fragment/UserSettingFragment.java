@@ -633,7 +633,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
             pDialog.show();
 
             VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.GET,
-                    Constant.URL_After_LOGIN + "notificationStatus", new Response.Listener<NetworkResponse>() {
+                    Constant.URL_After_LOGIN + "user/updateNotificationStatus", new Response.Listener<NetworkResponse>() {
                 @Override
                 public void onResponse(NetworkResponse response) {
                     String data = new String(response.data);
@@ -643,14 +643,14 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                         JSONObject jsonObject = new JSONObject(data);
 
                         String status = jsonObject.getString("status");
-                        String userstatus = jsonObject.getString("userstatus");
                         String message = jsonObject.getString("message");
 
-                        if (status.equals("SUCCESS")) {
+                        JSONObject object = jsonObject.getJSONObject("data");
 
-                            if (userstatus.equals("1")) {
-
-                                String notificationStatus = jsonObject.getString("notificationStatus");
+                        if (status.equalsIgnoreCase("SUCCESS")) {
+                            String userStatus = object.getString("userStatus");
+                            if (userStatus.equals("1")) {
+                                String notificationStatus = object.getString("notificationStatus");
 
                                 if (notificationStatus.equals("1")) {
                                     session.setNotificationStatus("1");
@@ -785,7 +785,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                     NetworkResponse networkResponse = error.networkResponse;
                     Constant.errorHandle(error, getActivity());
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -827,7 +827,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
             pDialog.show();
 
             VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST,
-                    Constant.URL_After_LOGIN + "changePassword", new Response.Listener<NetworkResponse>() {
+                    Constant.URL_After_LOGIN + "user/changePassword", new Response.Listener<NetworkResponse>() {
                 @Override
                 public void onResponse(NetworkResponse response) {
                     String data = new String(response.data);
@@ -837,10 +837,10 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                         JSONObject jsonObject = new JSONObject(data);
 
                         String status = jsonObject.getString("status");
-                        String userstatus = jsonObject.getString("userstatus");
+                        String userstatus = "1";
                         String message = jsonObject.getString("message");
 
-                        if (status.equals("SUCCESS")) {
+                        if (status.equalsIgnoreCase("success")) {
 
                             if (userstatus.equals("1")) {
 
@@ -872,7 +872,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                     NetworkResponse networkResponse = error.networkResponse;
                     Constant.errorHandle(error, getActivity());
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -912,7 +912,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
             pDialog.show();
 
             VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST,
-                    Constant.URL_After_LOGIN + "addFeedback", new Response.Listener<NetworkResponse>() {
+                    Constant.URL_After_LOGIN + "user/addFeedback", new Response.Listener<NetworkResponse>() {
                 @Override
                 public void onResponse(NetworkResponse response) {
                     String data = new String(response.data);
@@ -922,18 +922,11 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                         JSONObject jsonObject = new JSONObject(data);
 
                         String status = jsonObject.getString("status");
-                        String userstatus = jsonObject.getString("userstatus");
                         String message = jsonObject.getString("message");
 
-                        if (status.equals("SUCCESS")) {
-
-                            if (userstatus.equals("1")) {
-                                dialog.dismiss();
-                                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-
-                            } else {
-                                Utils.customAlertDialog(getActivity(), "Alert!", "Your account has been inactivated by admin, please contact to activate");
-                            }
+                        if (status.equalsIgnoreCase("SUCCESS")) {
+                            dialog.dismiss();
+                            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                         }
@@ -949,7 +942,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                     NetworkResponse networkResponse = error.networkResponse;
                     Constant.errorHandle(error, getActivity());
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -1064,7 +1057,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                     NetworkResponse networkResponse = error.networkResponse;
                     Constant.errorHandle(error, getActivity());
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }

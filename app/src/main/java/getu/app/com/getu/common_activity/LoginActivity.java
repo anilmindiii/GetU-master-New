@@ -309,7 +309,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(LoginActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(LoginActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -409,7 +409,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         String status = jsonObject.getString("status");
                         String message = jsonObject.getString("message");
 
-                        if (status.equals("SUCCESS")) {
+                        if (status.equals("success")) {
 
                             Constant.CATEGORY_POS = 0;
 
@@ -440,7 +440,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(LoginActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(LoginActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -475,9 +475,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     params.put("fireBaseId", "");
 
                     if (uri != null) {
-                        params.put("profilePic", uri.toString());
+                        params.put("profileImage", uri.toString());
                     }else {
-                        params.put("profilePic", "");
+                        params.put("profileImage", "");
                     }
                     return params;
                 }
@@ -533,7 +533,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseData.name = userDetails.fullName;
         firebaseData.email = userDetails.email;
         firebaseData.firebaseToken = FirebaseInstanceId.getInstance().getToken();
-        firebaseData.profilePic = userDetails.profileImage;
+        firebaseData.profilePic = userDetails.userAvatar;
         firebaseData.userType = userDetails.userType;
         firebaseData.uid = userDetails.id;
         firebaseData.notificationStatus = userDetails.notificationStatus;
@@ -593,7 +593,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseData.name = userDetails.fullName;
         firebaseData.email = userDetails.email;
         firebaseData.firebaseToken = FirebaseInstanceId.getInstance().getToken();
-        firebaseData.profilePic = userDetails.profileImage;
+        firebaseData.profilePic = userDetails.userAvatar;
         firebaseData.userType = userDetails.userType;
         firebaseData.uid = userDetails.id;
         firebaseData.notificationStatus = userDetails.notificationStatus;

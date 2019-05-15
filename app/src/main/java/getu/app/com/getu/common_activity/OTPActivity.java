@@ -60,6 +60,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
     private Bitmap bitmap;
     private UserDetails userDetails;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +68,8 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         initView();
 
         Bundle bundle = getIntent().getExtras();
-        OTP = bundle.getString("OTP");
+        //OTP = bundle.getString("OTP");
+        OTP = "1234";
         contactNumber = bundle.getString("CONTACT_NO");
         CountryCode = bundle.getString("CountryCode");
 
@@ -229,8 +231,9 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 onBackPressed();
                 break;
             case R.id.layout_for_reSend:
-                reSendOTP(userDetails.fullName, userDetails.userName, userDetails.email, userDetails.countryCode,
-                        userDetails.contactNo, userDetails.address, userDetails.password);
+                OTP = "1234";
+                /*reSendOTP(userDetails.fullName, userDetails.userName, userDetails.email, userDetails.countryCode,
+                        userDetails.contactNo, userDetails.address, userDetails.password);*/
                 break;
         }
     }
@@ -304,7 +307,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(OTPActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(OTPActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -372,7 +375,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(OTPActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(OTPActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -472,7 +475,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         firebaseData.name = userDetails.fullName;
         firebaseData.email = userDetails.email;
         firebaseData.firebaseToken = FirebaseInstanceId.getInstance().getToken();
-        firebaseData.profilePic = userDetails.profileImage;
+        firebaseData.profilePic = userDetails.userAvatar;
         firebaseData.userType = userDetails.userType;
         firebaseData.uid = userDetails.id;
         firebaseData.notificationStatus = userDetails.notificationStatus;
@@ -491,6 +494,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                             String fId = FirebaseAuth.getInstance().getUid();
                             firebaseData.firebaseId = fId;
                             writeToDBProfiles(firebaseData);
+
                             session.createSession(userDetails);
 
                             if (userDetails.userType.equals("1")) {
@@ -529,7 +533,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         firebaseData.name = userDetails.fullName;
         firebaseData.email = userDetails.email;
         firebaseData.firebaseToken = FirebaseInstanceId.getInstance().getToken();
-        firebaseData.profilePic = userDetails.profileImage;
+        firebaseData.profilePic = userDetails.userAvatar;
         firebaseData.userType = userDetails.userType;
         firebaseData.uid = userDetails.id;
         firebaseData.notificationStatus = userDetails.notificationStatus;
@@ -627,7 +631,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                    Toast.makeText(OTPActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(OTPActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -659,7 +663,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                     params.put("socialType", "");
                     params.put("city", userDetails.city);
                     if (bitmap == null){
-                        params.put("profilePic", "");
+                        params.put("profileImage", "");
                     }
                     return params;
                 }
@@ -668,7 +672,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 protected Map<String, DataPart> getByteData() {
                     Map<String, DataPart> params = new HashMap<String, DataPart>();
                     if (bitmap != null) {
-                        params.put("profilePic", new VolleyMultipartRequest.DataPart("profilePic.jpg", AppHelper.getFileDataFromDrawable(bitmap), "image/jpeg"));
+                        params.put("profileImage", new VolleyMultipartRequest.DataPart("profileImage.jpg", AppHelper.getFileDataFromDrawable(bitmap), "image/jpeg"));
                     }
                     return params;
                 }
