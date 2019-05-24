@@ -36,7 +36,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_20sdp"
             android:fontFamily="@font/montserrat_regular"
-            android:text="MayTropa"
+            android:text="May Tropa"
             android:textColor="@color/Green"
             android:textSize="@dimen/_20ssp" />
 

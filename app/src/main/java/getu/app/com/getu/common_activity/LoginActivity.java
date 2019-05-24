@@ -282,7 +282,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         String status = jsonObject.getString("status");
                         String message = jsonObject.getString("message");
-
+                        pDialog.dismiss();
                         if (status.equals("success")) {
                             JSONObject userDetail = jsonObject.getJSONObject("data");
 
@@ -302,14 +302,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     } catch (Throwable t) {
                         Log.e("My App", "Could not parse malformed JSON: \"" + response + "\"");
                     }
-                    pDialog.dismiss();
+
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                   // Toast.makeText(LoginActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -330,7 +330,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(LoginActivity.this).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(LoginActivity.this, R.string.check_net_connection, Toast.LENGTH_SHORT).show();
@@ -374,18 +374,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     } // parmission for location and code after parmission
 
     private void latlong(Double latitude, Double longitude) throws IOException {
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
 
-        List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
 
-        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-        city = addresses.get(0).getLocality();
-        String state = addresses.get(0).getAdminArea();
-        String country = addresses.get(0).getCountryName();
-        String postalCode = addresses.get(0).getPostalCode();
-        String knownName = addresses.get(0).getFeatureName();
+            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+            String knownName = addresses.get(0).getFeatureName();
 
-        addressCity = address;
+            addressCity = address;
+        }catch (Exception e){
+
+        }
+
+
 
     } // latlog to address find
 
@@ -440,7 +446,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                   // Toast.makeText(LoginActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -482,7 +488,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     return params;
                 }
             };
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(LoginActivity.this).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(LoginActivity.this, R.string.check_net_connection, Toast.LENGTH_SHORT).show();

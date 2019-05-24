@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:textSize="@dimen/_12ssp"
     android:gravity="left"
+    android:maxLines="1"
     android:fontFamily="@font/montserrat_regular"
     android:textColor="@color/darkGrey"
     android:hint="@string/find_help_near_me"

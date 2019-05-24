@@ -69,6 +69,22 @@ public final class ImagePicker {
         pickImage(fragment, chooserTitle);
     }*/
 
+    public static void pickImageFromCamera(Activity context) {
+
+        if (!appManifestContainsPermission(context, Manifest.permission.CAMERA) || hasCameraAccess(context)){
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra("return-data", true);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+
+            Uri uri = FileProvider.getUriForFile(context, context.getApplicationContext().
+                            getPackageName() + ".fileprovider",
+                    getTemporalFile(context));
+
+            intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+            context.startActivityForResult(intent, PICK_IMAGE_REQUEST_CODE);
+        }
+    }
     public static void pickImageFromCamera(Fragment fragment) {
         Context context = fragment.getContext();
         if (!appManifestContainsPermission(context, Manifest.permission.CAMERA) || hasCameraAccess(context)){
@@ -76,7 +92,7 @@ public final class ImagePicker {
             intent.putExtra("return-data", true);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            Uri uri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", getTemporalFile(fragment.getContext()));
+            Uri uri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".fileprovider", getTemporalFile(fragment.getContext()));
             intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
             fragment.startActivityForResult(intent, PICK_IMAGE_REQUEST_CODE);
         }
@@ -128,7 +144,7 @@ public final class ImagePicker {
         if (!appManifestContainsPermission(context, Manifest.permission.CAMERA) || hasCameraAccess(context)) {
             Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             takePhotoIntent.putExtra("return-data", true);
-            Uri uri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", getTemporalFile(context));
+            Uri uri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".fileprovider", getTemporalFile(context));
             takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
            // takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(getTemporalFile(context)));
             intentList = addIntentsToList(context, intentList, takePhotoIntent);

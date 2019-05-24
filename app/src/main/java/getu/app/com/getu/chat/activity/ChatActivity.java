@@ -113,9 +113,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         if (uID != null) {
             if (Integer.parseInt(uID) < Integer.parseInt(session.getUserID())) {
-                chatNode = session.getUserID() + "_" + uID;
-            } else {
+
                 chatNode = uID + "_" + session.getUserID();
+            } else {
+                chatNode = session.getUserID() + "_" + uID;
             }
         }
 

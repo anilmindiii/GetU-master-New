@@ -231,7 +231,8 @@ public class UserMapFragment extends Fragment implements OnMapReadyCallback, Cus
             Constant.myDialog(getActivity(),pDialog);
             pDialog.show();
 
-            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, Constant.URL_BEFORE_LOGIN + "getAllData", new Response.Listener<NetworkResponse>() {
+            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.GET,
+                    Constant.URL_BEFORE_LOGIN + "user/getFreelancersList?categoryId="+ Constant.CATEGORY_ID+"&offset="+page+"&limit="+limit+""+"&latitude="+latitude+"&longitude="+longitude+"", new Response.Listener<NetworkResponse>() {
                 @Override
                 public void onResponse(NetworkResponse response) {
                     String data = new String(response.data);
@@ -244,31 +245,35 @@ public class UserMapFragment extends Fragment implements OnMapReadyCallback, Cus
                         String message = jsonObject.getString("message");
 
                         pDialog.dismiss();
-                        if (status.equals("SUCCESS")) {
+                        if (status.equalsIgnoreCase("SUCCESS")) {
                             recycler_view.setVisibility(View.VISIBLE);
                             mapUserLists.clear();
                             pDialog.dismiss();
                             mapUserLists.clear();
-                            JSONArray result = jsonObject.getJSONArray("data");
+                            JSONObject objectJSONObject = jsonObject.getJSONObject("data");
+                            JSONArray result = objectJSONObject.getJSONArray("freelancer_list");
+
                             for (int i = 0; i < result.length(); i++) {
 
                                 JSONObject object = result.getJSONObject(i);
                                 UserList mapUserList = new UserList();
-
-                                mapUserList.profileimage = object.getString("profileImage");
-                                mapUserList.userId = object.getString("userId");
                                 mapUserList.userName = object.getString("userName");
+                                //userList.fireBaseId = object.getString("fireBaseId");
+                                //userList.fireBaseToken = object.getString("fireBaseToken");
                                 mapUserList.email = object.getString("email");
                                 mapUserList.contactNo = object.getString("contactNo");
                                 mapUserList.countryCode = object.getString("countryCode");
                                 mapUserList.description = object.getString("description");
+                                mapUserList.distance = object.getString("distance");
+                                mapUserList.profileimage = object.getString("userAvatar");
+                                mapUserList.userId = object.getString("id");
                                 mapUserList.fullName = object.getString("fullName");
                                 mapUserList.onlineStatus = object.getString("onlineStatus");
                                 mapUserList.latitude = object.getString("latitude");
                                 mapUserList.longitude = object.getString("longitude");
                                 mapUserList.address = object.getString("address");
-                                mapUserList.category = object.getString("cName");
-                                mapUserList.distance = object.getString("distance");
+                                mapUserList.category = object.getString("categoryName");
+                                mapUserList.category_id = object.getString("category_id");
 
                                 onlineStatus = mapUserList.onlineStatus;
                                 if (!mParam1.equals("online")) {
@@ -298,7 +303,7 @@ public class UserMapFragment extends Fragment implements OnMapReadyCallback, Cus
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                  //  Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -329,7 +334,7 @@ public class UserMapFragment extends Fragment implements OnMapReadyCallback, Cus
                     return params;
                 }
             };
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(getActivity()).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(getContext(), R.string.check_net_connection, Toast.LENGTH_SHORT).show();

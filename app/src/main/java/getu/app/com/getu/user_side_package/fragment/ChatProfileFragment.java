@@ -101,7 +101,7 @@ public class ChatProfileFragment extends Fragment {
             layout_for_email.setVisibility(View.VISIBLE);
             layout_for_contactNo.setVisibility(View.VISIBLE);
             tv_for_moreDetails.setVisibility(View.GONE);
-            sendNotificationAPI();
+            //sendNotificationAPI();
         }
 
         tv_for_moreDetails.setOnClickListener(new View.OnClickListener() {
@@ -216,7 +216,8 @@ public class ChatProfileFragment extends Fragment {
             Constant.myDialog(getActivity(),pDialog);
             pDialog.show();
 
-            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, Constant.URL_After_LOGIN + "viewProfileNotification", new Response.Listener<NetworkResponse>() {
+            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST,
+                    Constant.URL_After_LOGIN + "viewProfileNotification", new Response.Listener<NetworkResponse>() {
                 @Override
                 public void onResponse(NetworkResponse response) {
                     String data = new String(response.data);
@@ -246,7 +247,7 @@ public class ChatProfileFragment extends Fragment {
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                   // Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -271,7 +272,7 @@ public class ChatProfileFragment extends Fragment {
 
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(getContext()).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(getContext(), R.string.check_net_connection, Toast.LENGTH_SHORT).show();

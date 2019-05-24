@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +54,16 @@ public class MapUserAdapter extends RecyclerView.Adapter<MapUserAdapter.ViewHold
         holder.tv_for_fullName.setText(userList.fullName);
         holder.tv_for_category.setText(userList.category);
         holder.tv_for_address.setText(userList.address);
-        holder.tv_for_distance.setText(userList.distance);
+
+        try{
+            Double str = Double.valueOf(userList.distance);
+            String value = new DecimalFormat("#.##").format(str);
+            holder.tv_for_distance.setText(value);
+        }catch (Exception e){
+
+        }
+
+
         if (userList.onlineStatus.equals("0")){
             holder.iamge.setImageResource(R.drawable.unlike_ico);
         }else {

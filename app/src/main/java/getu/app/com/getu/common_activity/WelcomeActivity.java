@@ -44,7 +44,7 @@ import getu.app.com.getu.vollyemultipart.VolleySingleton;
 
 import static getu.app.com.getu.util.Constant.MY_PERMISSIONS_REQUEST_LOCATION;
 
-public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener{
+public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Spinner sp_for_selectItem;
     private LinearLayout layout_for_signin;
@@ -97,7 +97,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         if (Utils.isNetworkAvailable(this)) {
 
             final Dialog pDialog = new Dialog(this);
-            Constant.myDialog(this,pDialog);
+            Constant.myDialog(this, pDialog);
             pDialog.show();
 
             VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.GET, Constant.URL_BEFORE_LOGIN + "user/getCategoryList", new Response.Listener<NetworkResponse>() {
@@ -140,16 +140,16 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                   // Toast.makeText(WelcomeActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                     Toast.makeText(WelcomeActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
             });
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(WelcomeActivity.this).addToRequestQueue(multipartRequest);
         } else {
-           // Toast.makeText(WelcomeActivity.this, R.string.check_net_connection, Toast.LENGTH_SHORT).show();
-            Intent intent1 = new Intent(WelcomeActivity.this,NetworkErrorActivity.class);
+            // Toast.makeText(WelcomeActivity.this, R.string.check_net_connection, Toast.LENGTH_SHORT).show();
+            Intent intent1 = new Intent(WelcomeActivity.this, NetworkErrorActivity.class);
             startActivity(intent1);
         }
     }
@@ -208,20 +208,14 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btn_for_start:
                 Constant.CATEGORY_POS = sp_for_selectItem.getSelectedItemPosition();
                 if (rb_for_freelancer.isChecked()) {
-                    if (!catID.equals("") && !catID.equals("null")) {
-                        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(this, R.string.category, Toast.LENGTH_SHORT).show();
-                    }
+                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    startActivity(intent);
                 } else {
-                    if (!catID.equals("") && !catID.equals("null")) {
-                        Intent intent = new Intent(WelcomeActivity.this, UserMainActivity.class);
-                        intent.putExtra("GuestUser","GuestUser");
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(this, R.string.category, Toast.LENGTH_SHORT).show();
-                    }
+
+                    Intent intent = new Intent(WelcomeActivity.this, UserMainActivity.class);
+                    intent.putExtra("GuestUser", "GuestUser");
+                    startActivity(intent);
+
                 }
                 break;
             case R.id.rb_for_freelancer:
@@ -241,12 +235,8 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.layout_for_signin:
                 Constant.CATEGORY_POS = sp_for_selectItem.getSelectedItemPosition();
                 if (rb_for_freelancer.isChecked()) {
-                    if (!catID.equals("") && !catID.equals("null")) {
-                        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(this, R.string.category, Toast.LENGTH_SHORT).show();
-                    }
+                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    startActivity(intent);
                 } else {
                     Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
                     startActivity(intent);
@@ -263,7 +253,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 if (NetworkErrorActivity.isOptedToOffline()) {
 
                 } else {
-                    Intent intent1 = new Intent(WelcomeActivity.this,NetworkErrorActivity.class);
+                    Intent intent1 = new Intent(WelcomeActivity.this, NetworkErrorActivity.class);
                     startActivity(intent1);
                 }
             } else {
@@ -278,8 +268,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         try {
             registerReceiver(netSwitchReceiver, new IntentFilter(Constant.NETWORK_SWITCH_FILTER));
             getCategoryFullList();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -289,8 +278,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         super.onDestroy();
         try {
             unregisterReceiver(netSwitchReceiver);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
         }
     }

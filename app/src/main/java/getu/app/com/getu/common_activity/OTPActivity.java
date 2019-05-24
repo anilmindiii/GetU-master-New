@@ -68,8 +68,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         initView();
 
         Bundle bundle = getIntent().getExtras();
-        //OTP = bundle.getString("OTP");
-        OTP = "1234";
+        OTP = bundle.getString("OTP");
         contactNumber = bundle.getString("CONTACT_NO");
         CountryCode = bundle.getString("CountryCode");
 
@@ -231,9 +230,8 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 onBackPressed();
                 break;
             case R.id.layout_for_reSend:
-                OTP = "1234";
-                /*reSendOTP(userDetails.fullName, userDetails.userName, userDetails.email, userDetails.countryCode,
-                        userDetails.contactNo, userDetails.address, userDetails.password);*/
+                reSendOTP(userDetails.fullName, userDetails.userName, userDetails.email, userDetails.countryCode,
+                        userDetails.contactNo, userDetails.address, userDetails.password);
                 break;
         }
     }
@@ -307,7 +305,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                  //  Toast.makeText(OTPActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OTPActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -325,7 +323,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(OTPActivity.this).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(OTPActivity.this, R.string.check_net_connection, Toast.LENGTH_SHORT).show();
@@ -375,7 +373,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                   // Toast.makeText(OTPActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(OTPActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -417,7 +415,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                     return params;
                 }
             };
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(OTPActivity.this).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(OTPActivity.this, R.string.check_net_connection, Toast.LENGTH_SHORT).show();
@@ -631,7 +629,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                //    Toast.makeText(OTPActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                  Toast.makeText(OTPActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -678,7 +676,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(OTPActivity.this).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(OTPActivity.this, R.string.check_net_connection, Toast.LENGTH_SHORT).show();

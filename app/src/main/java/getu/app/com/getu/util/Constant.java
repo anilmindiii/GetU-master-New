@@ -114,6 +114,15 @@ public class Constant {
 
                 String status = response.getString("responseCode");
                 String message = response.getString("message");
+                //int isActive = response.getInt("isActive");
+
+                /*if(isActive == 1){
+                    if (activity != null) {
+                        showAlertDialog(activity, "You are inactive by Admin", "Inactive", "Ok");
+                        return;
+                    }
+                }*/
+
 
                 if (status.equals("300")) {
                     if (activity != null) {
@@ -227,7 +236,7 @@ public class Constant {
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(con).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(con, R.string.check_net_connection, Toast.LENGTH_SHORT).show();

@@ -113,13 +113,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:background="@color/lightGrey" />
+                android:background="@color/lightGrey"
+                android:visibility="gone"/>
 
             <RelativeLayout
                 android:id="@+id/layout_for_changeNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp">
+                android:layout_marginTop="@dimen/_8sdp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -177,15 +179,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:background="@color/lightGrey"
-                android:visibility="gone"/>
+                android:background="@color/lightGrey" />
 
             <RelativeLayout
                 android:id="@+id/layout_for_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:visibility="gone">
+                android:layout_marginTop="@dimen/_8sdp">
 
                 <TextView
                     android:layout_width="match_parent"

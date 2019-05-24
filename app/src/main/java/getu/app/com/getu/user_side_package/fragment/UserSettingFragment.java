@@ -448,7 +448,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(getContext()).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(getActivity(), R.string.check_net_connection, Toast.LENGTH_SHORT).show();
@@ -619,7 +619,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(getContext()).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(getActivity(), R.string.check_net_connection, Toast.LENGTH_SHORT).show();
@@ -650,7 +650,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                         if (status.equalsIgnoreCase("SUCCESS")) {
                             String userStatus = object.getString("userStatus");
                             if (userStatus.equals("1")) {
-                                String notificationStatus = object.getString("notificationStatus");
+                                String notificationStatus = object.getString("notification_status");
 
                                 if (notificationStatus.equals("1")) {
                                     session.setNotificationStatus("1");
@@ -731,7 +731,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(getContext()).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(getActivity(), R.string.check_net_connection, Toast.LENGTH_SHORT).show();
@@ -785,7 +785,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                     NetworkResponse networkResponse = error.networkResponse;
                     Constant.errorHandle(error, getActivity());
                     Log.i("Error", networkResponse + "");
-                   // Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -813,7 +813,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(getContext()).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(getActivity(), R.string.check_net_connection, Toast.LENGTH_SHORT).show();
@@ -872,7 +872,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                     NetworkResponse networkResponse = error.networkResponse;
                     Constant.errorHandle(error, getActivity());
                     Log.i("Error", networkResponse + "");
-                   // Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -899,7 +899,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(getContext()).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(getActivity(), R.string.check_net_connection, Toast.LENGTH_SHORT).show();
@@ -942,7 +942,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                     NetworkResponse networkResponse = error.networkResponse;
                     Constant.errorHandle(error, getActivity());
                     Log.i("Error", networkResponse + "");
-                   // Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -967,7 +967,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(getContext()).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(getActivity(), R.string.check_net_connection, Toast.LENGTH_SHORT).show();
@@ -1057,7 +1057,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                     NetworkResponse networkResponse = error.networkResponse;
                     Constant.errorHandle(error, getActivity());
                     Log.i("Error", networkResponse + "");
-                   // Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -1073,7 +1073,7 @@ public class UserSettingFragment extends Fragment implements View.OnClickListene
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(getContext()).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(getActivity(), R.string.check_net_connection, Toast.LENGTH_SHORT).show();

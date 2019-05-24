@@ -73,7 +73,8 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
             Constant.myDialog(this,pDialog);
             pDialog.show();
 
-            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, Constant.URL_BEFORE_LOGIN + "forgotPassword", new Response.Listener<NetworkResponse>() {
+            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST,
+                    Constant.URL_BEFORE_LOGIN + "auth/forgotPassword", new Response.Listener<NetworkResponse>() {
                 @Override
                 public void onResponse(NetworkResponse response) {
                     String data = new String(response.data);
@@ -85,7 +86,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                         String status = jsonObject.getString("status");
                         String message = jsonObject.getString("message");
 
-                        if (status.equals("SUCCESS")) {
+                        if (status.equalsIgnoreCase("SUCCESS")) {
                             Intent intent = new Intent(ForgotPasswordActivity.this,LoginActivity.class);
                             startActivity(intent);
                             Toast.makeText(ForgotPasswordActivity.this, message, Toast.LENGTH_SHORT).show();
@@ -103,7 +104,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                   // Toast.makeText(ForgotPasswordActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotPasswordActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -117,7 +118,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(ForgotPasswordActivity.this).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(ForgotPasswordActivity.this, R.string.check_net_connection, Toast.LENGTH_SHORT).show();

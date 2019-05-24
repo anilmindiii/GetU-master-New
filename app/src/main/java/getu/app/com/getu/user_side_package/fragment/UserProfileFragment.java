@@ -73,12 +73,14 @@ import java.util.Map;
 
 import getu.app.com.getu.R;
 import getu.app.com.getu.app_session.Session;
+import getu.app.com.getu.chat.activity.ChatActivity;
 import getu.app.com.getu.chat.model.ChatHistory;
 import getu.app.com.getu.chat.model.FirebaseData;
 import getu.app.com.getu.common_activity.LoginActivity;
 import getu.app.com.getu.common_activity.RagistrationActivity;
 import getu.app.com.getu.common_activity.WelcomeActivity;
 import getu.app.com.getu.freelancer_side.activity.FreelancerActivity;
+import getu.app.com.getu.hepler.ImagePicker;
 import getu.app.com.getu.hepler.PermissionAll;
 import getu.app.com.getu.model.UserDetails;
 import getu.app.com.getu.user_side_package.acrivity.UserMainActivity;
@@ -178,7 +180,7 @@ public class UserProfileFragment extends Fragment {
         if (profilePic != null && !profilePic.equals("")) {
             Picasso.with(getContext()).load(profilePic).placeholder(R.drawable.user).into(iv_for_profileImg);
         }else{
-            Picasso.with(getContext()).load(R.drawable.user).fit().into(iv_for_profileImg);
+            Picasso.with(getContext()).load(R.drawable.user).into(iv_for_profileImg);
         }
 
         et_for_fullname.setText(name);
@@ -304,7 +306,7 @@ public class UserProfileFragment extends Fragment {
                     NetworkResponse networkResponse = error.networkResponse;
 
                     Log.i("Error", networkResponse + "");
-                   // Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -353,13 +355,13 @@ public class UserProfileFragment extends Fragment {
                 protected Map<String, DataPart> getByteData() {
                     Map<String, DataPart> params = new HashMap<String, DataPart>();
                     if ( bitmap != null) {
-                        //params.put("profileImage", new VolleyMultipartRequest.DataPart("profilePic.jpg", AppHelper.getFileDataFromDrawable(bitmap), "image/jpeg"));
+                        params.put("profileImage", new VolleyMultipartRequest.DataPart("profilePic.jpg", AppHelper.getFileDataFromDrawable(bitmap), "image/jpeg"));
                     }
                     return params;
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(getContext()).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(getContext(), R.string.check_net_connection, Toast.LENGTH_SHORT).show();
@@ -381,8 +383,8 @@ public class UserProfileFragment extends Fragment {
         layout_for_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 7);
+                ImagePicker.pickImageFromCamera(UserProfileFragment.this);
+
                 dialog.dismiss();
             }
         });
@@ -409,11 +411,15 @@ public class UserProfileFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            if (requestCode == 7 && resultCode == RESULT_OK) {
-                bitmap = (Bitmap) data.getExtras().get("data");
-                iv_for_profileImg.setImageBitmap(bitmap);
-            }
+        }
+
+        if (requestCode == 234) {
+            //Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
+            Uri imageUri = ImagePicker.getImageURIFromResult(getActivity(), requestCode, resultCode, data);
+            if (imageUri != null) {
+                bitmap = ImagePicker.getImageFromResult(getActivity(), requestCode, resultCode, data);
+                iv_for_profileImg.setImageBitmap(bitmap);}
+
         }
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             et_for_address.setEnabled(true);
@@ -660,7 +666,7 @@ public class UserProfileFragment extends Fragment {
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
+                        userDetails.authToken = session.getAuthToken();
                         if (!task.isSuccessful()) {
                             // there was an error
                             firebaseRagistration(userDetails);

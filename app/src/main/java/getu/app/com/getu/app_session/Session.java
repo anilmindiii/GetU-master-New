@@ -40,7 +40,7 @@ public class Session {
         editor.putString(Constant.ID, userDetails.id);
         editor.putString("userType", userDetails.userType);
         editor.putString(Constant.FULL_NAME, userDetails.fullName);
-        editor.putString(Constant.CID, userDetails.cId);
+        editor.putString(Constant.CID, userDetails.category_id);
         editor.putString(Constant.AUTH_TOKEN, userDetails.authToken);
         editor.putString(Constant.STATUS, userDetails.status);
         editor.putString(Constant.PROFILE_PIC, userDetails.userAvatar);

@@ -19,7 +19,7 @@ public class UserDetails implements Serializable {
     public String id = "";
     public String userType = "";
     public String fullName = "";
-    public String cId = "";
+    public String category_id = "";
     public String authToken = "";
     public String status = "";
     public String cName = "";

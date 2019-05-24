@@ -5,12 +5,12 @@
     <string name="forget_password">Forgot Password ?</string>
     <string name="password">Password</string>
     <string name="username_contact_number">Username / Contact Number</string>
-    <string name="welcome_to_getu">Welcome to MayTropa</string>
+    <string name="welcome_to_getu">Welcome to May Tropa</string>
     <string name="i_am_a_freelancer">I am a freelancer</string>
     <string name="get_started">Get Started</string>
     <string name="already_have_an_account">Already have an account ?</string>
     <string name="signin_here">signin here</string>
-    <string name="new_to_getu">New to MayTropa ?</string>
+    <string name="new_to_getu">New to May Tropa ?</string>
     <string name="email_id">Email Id</string>
     <string name="contact_number">Contact number</string>
     <string name="address">Address</string>
@@ -32,7 +32,7 @@
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="or">OR</string>
-    <string name="getu">MayTropa</string>
+    <string name="getu">May Tropa</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -92,8 +92,8 @@
     <string name="full_name">Full Name</string>
     <string name="change_password_dailog">Change Password?</string>
     <string name="change_number_d">Change number?</string>
-    <string name="about_us_dis">MayTropa has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites.
-You acknowledge and agree that MayTropa shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such third party web sites or services.
+    <string name="about_us_dis">May Tropa has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites.
+You acknowledge and agree that May Tropa shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such third party web sites or services.
 </string>
     <string name="type_here">Type here ....</string>
     <string name="no_chat_history_found">No chat history found</string>

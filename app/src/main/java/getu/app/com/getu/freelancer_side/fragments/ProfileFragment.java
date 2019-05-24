@@ -66,6 +66,7 @@ import getu.app.com.getu.adapter.CustomSpAdapter;
 import getu.app.com.getu.app_session.Session;
 import getu.app.com.getu.chat.model.FirebaseData;
 import getu.app.com.getu.common_activity.WelcomeActivity;
+import getu.app.com.getu.hepler.ImagePicker;
 import getu.app.com.getu.hepler.PermissionAll;
 import getu.app.com.getu.model.Category;
 import getu.app.com.getu.model.UserDetails;
@@ -85,7 +86,7 @@ public class ProfileFragment extends Fragment {
     private Session session;
     private Dialog dialog;
     private String catID;
-    private Bitmap bitmap;
+    private Bitmap bitmap = null;
     private ImageView iv_for_profileImg,iv_for_edit,iv_for_update;
     private RelativeLayout layout_for_userImg;
     private EditText et_for_fullname,et_for_email,et_for_discription,et_for_userName;
@@ -268,8 +269,7 @@ public class ProfileFragment extends Fragment {
         layout_for_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 7);
+                ImagePicker.pickImageFromCamera(ProfileFragment.this);
                 dialog.dismiss();
             }
         });
@@ -296,12 +296,17 @@ public class ProfileFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            if (requestCode == 7 && resultCode == RESULT_OK) {
-                bitmap = (Bitmap) data.getExtras().get("data");
-                iv_for_profileImg.setImageBitmap(bitmap);
-            }
         }
+
+        if (requestCode == 234) {
+            //Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
+            Uri imageUri = ImagePicker.getImageURIFromResult(getActivity(), requestCode, resultCode, data);
+            if (imageUri != null) {
+                bitmap = ImagePicker.getImageFromResult(getActivity(), requestCode, resultCode, data);
+                iv_for_profileImg.setImageBitmap(bitmap);}
+
+        }
+
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             et_for_address.setEnabled(true);
             if (resultCode == RESULT_OK) {
@@ -467,8 +472,8 @@ public class ProfileFragment extends Fragment {
                     et_for_address.requestFocus();
                 } else {
                     if (bitmap != null |!userName.equals(session.getuserName()) | !email.equals(session.getEmail()) | !address.equals(session.getAddressName()) | !discriptions.equals(session.getDescription()) | !fullName.equals(session.getFullName())) {
-                        updateProfile(userName, email, address, discriptions, fullName, oldUserName);
                     }
+                    updateProfile(userName, email, address, discriptions, fullName, oldUserName);
                 }
             }
         });
@@ -491,7 +496,8 @@ public class ProfileFragment extends Fragment {
             Constant.myDialog(getActivity(),pDialog);
             pDialog.show();
 
-            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, Constant.URL_After_LOGIN + "user/updateProfile", new Response.Listener<NetworkResponse>() {
+            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST,
+                    Constant.URL_After_LOGIN + "user/updateProfile", new Response.Listener<NetworkResponse>() {
                 @Override
                 public void onResponse(NetworkResponse response) {
                     String data = new String(response.data);
@@ -517,11 +523,11 @@ public class ProfileFragment extends Fragment {
                                 session.logout();
                                 startActivity(intent);
                             }
-                            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
 
 
                         } else {
-                            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (Throwable t) {
@@ -537,7 +543,7 @@ public class ProfileFragment extends Fragment {
                     NetworkResponse networkResponse = error.networkResponse;
                     Constant.errorHandle(error, getActivity());
                     Log.i("Error", networkResponse + "");
-                  //  Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -594,7 +600,7 @@ public class ProfileFragment extends Fragment {
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(getContext()).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(getContext(), R.string.check_net_connection, Toast.LENGTH_SHORT).show();
@@ -648,8 +654,9 @@ public class ProfileFragment extends Fragment {
                             }
                             customSpAdapter.notifyDataSetChanged();
 
+                            String cId = session.getCID();
                             for(int j=0;j<arrayList.size();j++){
-                                if(arrayList.get(j).cID.equals(session.getCID())){
+                                if(arrayList.get(j).cID.equals(cId)){
                                     sp_for_selectItem.setSelection(j);
                                 }
                             }
@@ -668,12 +675,12 @@ public class ProfileFragment extends Fragment {
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                  //  Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
             });
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(getContext()).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(getContext(), R.string.check_net_connection, Toast.LENGTH_SHORT).show();
@@ -700,7 +707,7 @@ public class ProfileFragment extends Fragment {
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
+                        userDetails.authToken = session.getAuthToken();
                         if (!task.isSuccessful()) {
 
                             firebaseLogin(userDetails);
@@ -751,7 +758,7 @@ public class ProfileFragment extends Fragment {
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
+                        userDetails.authToken = session.getAuthToken();
                         if (!task.isSuccessful()) {
                             // there was an error
                             firebaseRagistration(userDetails);

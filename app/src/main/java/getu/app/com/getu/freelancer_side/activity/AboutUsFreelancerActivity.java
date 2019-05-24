@@ -97,13 +97,13 @@ public class AboutUsFreelancerActivity extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                 //   Toast.makeText(AboutUsFreelancerActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AboutUsFreelancerActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
             });
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(this).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(this, R.string.check_net_connection, Toast.LENGTH_SHORT).show();

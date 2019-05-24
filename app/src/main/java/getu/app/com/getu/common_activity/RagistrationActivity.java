@@ -61,7 +61,9 @@ import java.util.Map;
 
 import getu.app.com.getu.R;
 import getu.app.com.getu.adapter.CustomSpAdapter;
+import getu.app.com.getu.freelancer_side.fragments.ProfileFragment;
 import getu.app.com.getu.hepler.HelperGetU;
+import getu.app.com.getu.hepler.ImagePicker;
 import getu.app.com.getu.hepler.PermissionAll;
 import getu.app.com.getu.model.Category;
 import getu.app.com.getu.model.CodeInfo;
@@ -142,6 +144,7 @@ public class RagistrationActivity extends AppCompatActivity implements View.OnCl
             public void onItemSelected(AdapterView<?> parentView, View v, int position, long id) {
                 Category category = arrayList.get(position);
                 Constant.CATEGORY_ID = category.cID;
+                sCatId = Constant.CATEGORY_ID;
             }
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
@@ -196,11 +199,15 @@ public class RagistrationActivity extends AppCompatActivity implements View.OnCl
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            if (requestCode == 7 && resultCode == RESULT_OK) {
-                bitmap = (Bitmap) data.getExtras().get("data");
-                iv_profile_image.setImageBitmap(bitmap);
-            }
+        }
+
+        if (requestCode == 234) {
+            //Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
+            Uri imageUri = ImagePicker.getImageURIFromResult(this, requestCode, resultCode, data);
+            if (imageUri != null) {
+                bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
+                iv_profile_image.setImageBitmap(bitmap);}
+
         }
 
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
@@ -456,7 +463,7 @@ public class RagistrationActivity extends AppCompatActivity implements View.OnCl
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                  //  Toast.makeText(RagistrationActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RagistrationActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -498,7 +505,7 @@ public class RagistrationActivity extends AppCompatActivity implements View.OnCl
                     return params;
                 }
             };
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(RagistrationActivity.this).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(RagistrationActivity.this, R.string.check_net_connection, Toast.LENGTH_SHORT).show();
@@ -549,7 +556,7 @@ public class RagistrationActivity extends AppCompatActivity implements View.OnCl
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                   // Toast.makeText(RagistrationActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(RagistrationActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -597,7 +604,7 @@ public class RagistrationActivity extends AppCompatActivity implements View.OnCl
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(RagistrationActivity.this).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(RagistrationActivity.this, R.string.check_net_connection, Toast.LENGTH_SHORT).show();
@@ -619,8 +626,7 @@ public class RagistrationActivity extends AppCompatActivity implements View.OnCl
         layout_for_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 7);
+                ImagePicker.pickImageFromCamera(RagistrationActivity.this);
                 dialog.dismiss();
             }
         });
@@ -685,12 +691,12 @@ public class RagistrationActivity extends AppCompatActivity implements View.OnCl
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
                     Log.i("Error", networkResponse + "");
-                  //  Toast.makeText(RagistrationActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(RagistrationActivity.this, networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
             });
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(RagistrationActivity.this).addToRequestQueue(multipartRequest);
         } else {
             Toast.makeText(RagistrationActivity.this, R.string.check_net_connection, Toast.LENGTH_SHORT).show();

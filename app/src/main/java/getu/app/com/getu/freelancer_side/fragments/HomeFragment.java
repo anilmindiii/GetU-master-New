@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
         listmap = new HashMap<String,ChatHistory>();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("history/"+session.getUserID());
         getMessageList();
-        addChatCount();
+        //addChatCount();
 
         TextView tv_for_name = view.findViewById(R.id.tv_for_name);
         TextView tv_for_category = view.findViewById(R.id.tv_for_category);
@@ -206,7 +206,7 @@ public class HomeFragment extends Fragment {
                     NetworkResponse networkResponse = error.networkResponse;
                     Constant.errorHandle(error, getActivity());
                     Log.i("Error", networkResponse + "");
-                   // Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), networkResponse + "", Toast.LENGTH_SHORT).show();
                     pDialog.dismiss();
                     error.printStackTrace();
                 }
@@ -221,8 +221,8 @@ public class HomeFragment extends Fragment {
                 }
 
                 @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> headers = new HashMap<String, String>();
+                public Map<String, String> getHeaders() {
+                    Map<String, String> headers = new HashMap<>();
 
                     headers.put("authToken", session.getAuthToken());
 
@@ -230,7 +230,7 @@ public class HomeFragment extends Fragment {
                 }
             };
 
-            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            multipartRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             VolleySingleton.getInstance(getContext()).addToRequestQueue(multipartRequest);
         } else {
             //Toast.makeText(getContext(), R.string.check_net_connection, Toast.LENGTH_SHORT).show();
